@@ -32,7 +32,7 @@ console.log('eccolo:'+works)
   return (
   <div>
       <Menu/>
-      <main style={{marginTop:'275px', marginBottom:'20vH'}} className="mx-auto max-w-5xl px-4 py-8 opacityAnim">
+      <main style={{marginTop:'275px', minHeight: 'calc(99vH - 275px)'}} className="mx-auto max-w-5xl px-4 py-8 opacityAnim">
         <WorksList works={works} />
       </main>
       <Footer />

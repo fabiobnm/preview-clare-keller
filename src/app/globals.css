@@ -23,7 +23,8 @@
 @font-face {
   font-family: "PPeiko-Regular";
   src:
-    url("/fonts/PPeiko-Regular.woff") format("woff");   /* il tuo file */
+    url("/fonts/PPeiko-Regular.woff") format("woff"),   /* il tuo file */
+    url("/fonts/PPeiko-Regular.ttf") format("truetype");   /* il tuo file */
   font-style: normal;
   font-display: swap;
 }
@@ -52,6 +53,7 @@ body {
 h1{
   font-family: "PPeiko-Regular";
   font-weight: normal;
+  line-height: 1.1;
 }
 
 .subLogoMobile{
@@ -72,6 +74,16 @@ text-decoration: underline;
 .custom-link {
   text-decoration: underline;
   text-underline-offset: 2px;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.textWriter{
+  margin-top: 5px;
+}
+
+.textWriter p{
+  font-size: 11px;
 }
 
 
@@ -688,6 +700,7 @@ text-align: center;
   margin-bottom: 5vW;
     width: 100vW;
     padding: 15px;
+    padding-top: 65px;
 }
 
 .infoLink{

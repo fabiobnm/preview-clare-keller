@@ -42,7 +42,7 @@ const [hovered, setHovered] = useState<string | null>(null);
           const isOpen = selectedWork === work.project;
 
           return (
-            <div key={work.project} style={{borderBottom:'.5px solid #e6e6e6', width:'100%',paddingBlock:'5px'}}>
+            <div key={work.project} style={{borderBottom:'.5px solid #e6e6e6', width:'100%',paddingBlock:'5px', paddingTop:'7px'}}>
             <div style={{display:'flex',cursor: "pointer",}}   onClick={() => handleClickDirector(work.project)}
                             onMouseEnter={(e) => {
                             if (isOpen) return; // ← BLOCCO SE È APERTO

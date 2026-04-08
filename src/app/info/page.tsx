@@ -44,8 +44,7 @@ export default async function Page() {
             
           </div>
           <div className="textAbout">
-            <p>ABOUT</p>
-            <div style={{marginTop:'30px'}} dangerouslySetInnerHTML={{ __html: info.about?.html ?? "Nessun contenuto AboutUs trovato." }}/>
+            <div style={{marginTop:'0px'}} dangerouslySetInnerHTML={{ __html: info.about?.html ?? "Nessun contenuto AboutUs trovato." }}/>
           </div>
 
         </div>
