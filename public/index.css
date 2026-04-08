@@ -1,0 +1,262 @@
+  * {
+      box-sizing: border-box;
+    }
+
+    @font-face {
+      font-family: "Ufficio600";
+      src:
+        url("/fonts/Ufficio-500.woff2") format("woff2"),
+        url("/fonts/Ufficio-500.woff") format("woff");
+      font-style: normal;
+      font-display: swap;
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    body {
+      margin: 0;
+      min-height: 3000vh; /* serve altezza per poter scrollare in verticale */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #eff2fe;
+      color: #000;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      gap: 10rem;
+      /*animation: backgroundIndex .6s ease 1.6s forwards;*/
+    }
+
+    @keyframes backgroundIndex {
+      to {
+        background:#eff2fe;
+      }
+    }
+
+    a{
+      text-decoration: none;
+      color: black;
+      opacity:1;
+      font-family: 'Ufficio600';
+    }
+
+    .frame {
+      width: 100vw;
+      overflow: visible;
+      background: transparent;
+      border-radius: 0;
+      border: none;
+      position: fixed;
+      top: 40vh;
+      top: 40dvh;
+      transform-origin: top;
+      transition: top 2.5s;
+
+    }
+
+
+    @keyframes bottomMov {
+      to {
+        top: 58vh;
+        top: 58dvh
+      }
+    }
+
+
+    .fabioMenu{
+      position: relative;
+      display: flex;
+      top: -2.6vw;
+      width: 100%;
+      transition: top 0.3s ease;
+      box-shadow: 0px 1px 1px transparent;
+      opacity: 0;
+      animation: opacityIndex .6s ease-out 1.6s forwards;
+    }
+
+    .divMenu {
+      width: 16.66%;
+      font-size: 14px;
+      opacity: 1;
+    }
+
+    .divMenu a{
+      transition: opacity .4s ease;
+    }
+
+    .divMenuRight {
+      position: absolute;
+      right: 0;
+      font-size: 14px;
+      text-align: end;
+    }
+
+    .frame.zoomed {
+      overflow: hidden;
+      border-radius: 16px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1500px;
+      padding: 12px;
+      padding-bottom: 5px;
+      overflow-x: auto;
+      overscroll-behavior-x: auto;
+      animation: inlineGap 1.4s ease-out 0.2s forwards;
+    }
+
+    @keyframes inlineGap {
+      to {
+        gap: 5px;
+      }
+    }
+
+    .LogoIndex{
+      opacity:0;
+      animation: opacityIndex .6s ease-out 1.6s forwards;
+    }
+
+    @keyframes opacityIndex {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .row.zoomed {
+      overflow-x: auto;
+      gap: 48px;
+      padding: 24px;
+      padding-bottom: 5px;
+    }
+
+    .row::-webkit-scrollbar {
+      display: none;
+    }
+    .row::-webkit-scrollbar-track {
+      background: none;
+    }
+    .row::-webkit-scrollbar-thumb {
+      background: none;
+    }
+
+    .row img {
+      flex: 0 0 auto;
+      height: 10vh;
+      height: 10dvh; /* small size */
+      object-fit: cover;
+      opacity: 0;
+      animation:
+        opacityIndex .9s ease-out 0.2s forwards;
+      transform-origin: top;
+      filter: none;
+      transition: filter 0.3s ease, height 2.5s;
+    }
+    @keyframes TallIndex {
+    
+      to {
+        height: 40vh;
+        height: 40dvh;
+      }
+    }
+
+    .socials {
+      top: 57vH;
+      top: 57dvh;
+      width: 100%;
+      position: fixed;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 8px;
+      padding-left: 15px;
+      font-family: "Ufficio600";
+      font-size: .7em;
+      transition: .3s;
+      transition-delay: .6s;
+      opacity: 0;
+      animation: opacityAnimation .4s ease-out 3.5s forwards;
+    }
+
+    @keyframes opacityAnimation {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .socials .copy {
+      position: absolute;
+      right: 15px;
+    }
+
+    /* quando una QUALSIASI img è in hover, tutte bright 0.7 */
+    .row:has(img:hover) img {
+      overflow: clip;
+      filter: brightness(0.7);
+    }
+
+    /* tranne quella sotto il mouse */
+    .row:has(img:hover) img:hover {
+      filter: none;
+    }
+
+    .row.zoomed img {
+      height: 42vh; /* zoomed size */
+    }
+
+    /* social hover opacity behavior (kept) */
+    .socials a {
+      cursor:pointer;
+      opacity: 1;
+      transition: opacity 0.4s ease;
+    }
+
+    /* quando qualunque <a> è in hover → tutti a .2 */
+    .socials:has(a:hover) a {
+      opacity: 0.2;
+    }
+
+    /* tranne QUELLO sotto il mouse */
+    .socials a:hover {
+      opacity: 1 !important;
+    }
+
+
+    @media (max-width: 600px) {
+.divMenu{
+  white-space: nowrap;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.fabioMenu{
+  display: block;
+  top: 4vW;
+}
+.socials{
+  top: 57dvh;
+}
+.divMenuRight {
+    position: relative;
+  
+    text-align: start;
+}
+  body{
+  min-height: 100dvh;
+  height: 100dvh; /* Use vh as a fallback for browsers that do not support Custom Properties */
+  max-height: 100dvh;
+}
+
+#ArcNo:hover{
+  all: revert-layer;
+  font-family: 'Ufficio600';
+}
+
+    }
+
+
+    #ArcNo:hover{
+  all: revert-layer;
+}

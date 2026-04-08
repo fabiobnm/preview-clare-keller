@@ -1,0 +1,93 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  --itemH: 420px;
+}
+
+/* ====== FASE INTRO ====== */
+.introStage {
+  position: relative;
+  height: calc(var(--itemH) * 1.2);
+  display: grid;
+  place-items: center;
+}
+
+.center {
+  position: relative;
+  z-index: 2;
+  transform: scale(0.85);
+  opacity: 0;
+  animation: popIn .5s ease forwards .1s;
+}
+.center img {
+  display: block;
+  height: calc(var(--itemH) * 0.75);
+  width: auto;
+  object-fit: cover;
+}
+
+/* gruppi laterali */
+.side {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  gap: 10px;
+  transform: translateY(-50%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .6s ease, opacity .6s ease;
+}
+.side.left  { left: 0;  transform: translate(-120%, -50%); }
+.side.right { right: 0; transform: translate(120%, -50%);  }
+
+.side.in {
+  opacity: 1;
+  pointer-events: none;
+}
+.side.left.in  { transform: translate(-10%, -50%); }
+.side.right.in { transform: translate(10%, -50%);  }
+
+.thumb img {
+  display: block;
+  height: calc(var(--itemH) * 0.6);
+  width: auto;
+  object-fit: cover;
+}
+
+/* ====== FASE CAROUSEL ====== */
+.carouselViewport {
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 6px 8px;
+}
+.carouselViewport::-webkit-scrollbar { display: none; }
+
+.carouselTrack {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  width: max-content;
+}
+
+.item {
+  flex: 0 0 auto;
+  height: var(--itemH);
+  display: flex;
+  align-items: flex-end;
+}
+
+.item img {
+  display: block;
+  height: var(--itemH);
+  width: auto;
+  object-fit: cover;
+}
+
+/* animazioni */
+@keyframes popIn {
+  to { transform: scale(1); opacity: 1; }
+}

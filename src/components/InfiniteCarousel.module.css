@@ -1,0 +1,70 @@
+.viewport {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+.viewport::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+
+.track {
+  display: flex;
+  flex-direction: row;
+  width: max-content;
+  user-select: none;
+  gap: var(--gap, 12px);
+  padding: 0 8px; /* un filo di respiro ai lati */
+    animation: marquee 60s linear 5s forwards infinite; /* velocità: regola qui */
+
+}
+
+.cycle {
+  display: flex;
+  flex-direction: row;
+  gap: var(--gap, 12px);
+}
+
+.item {
+  flex: 0 0 auto;
+  border: 0;
+  overflow: hidden;
+  display: block;
+  will-change: transform;
+  height: 150px;
+  animation: bigger 1s ease-out 2s forwards; /* durata .5s, delay .1s */
+}
+
+@keyframes bigger {
+  to {
+
+    height: 420px; /* posizione finale */
+    
+  }
+}
+.appari{
+opacity: 0;
+  animation: opacitino .6s ease-out .5s forwards; /* durata .5s, delay .1s */
+
+}
+@keyframes opacitino {
+  to {
+
+    opacity: 1; /* posizione finale */
+    
+  }
+}
+.item img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;     /* riempi */
+  object-position: center; /* o bottom se preferisci */
+  pointer-events: none;  /* evita drag ghost */
+}
+
+/* Marquee infinita: la track contiene due copie, quindi -50% completa 1 ciclo */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

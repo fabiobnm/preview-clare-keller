@@ -1,0 +1,73 @@
+.wrapper {
+  /* stato di base, gestito con modifier .scattered / .arranged */
+  width: 100%;
+  contain: layout paint;
+}
+
+/* TRACK: contiene gli item in linea */
+.track {
+  display: flex;
+  gap: var(--gap, 12px);
+  align-items: flex-end;
+  width: max-content;
+  transform: translateZ(0);
+}
+
+/* ITEM: dimensioni finali in strip; in fase scattered usiamo transform */
+.item {
+  flex: 0 0 auto;
+  height: var(--itemH, 320px);
+  transition: transform var(--animMs, 700ms) cubic-bezier(.2,.7,0,1);
+  will-change: transform;
+}
+.item img {
+  display: block;
+  height: 100%;
+  width: auto;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ---------- STATI ---------- */
+
+/* 1) SCATTERED: niente scroller, gli item sono "sparati" via transform */
+.scattered {
+  position: relative;
+  overflow: hidden;        /* nasconde le parti fuori da viewport */
+  height: 80vh;            /* area di lancio iniziale */
+  display: grid;           /* per centrare visivamente il track */
+  place-items: center;
+}
+.scattered .track {
+  /* teniamo gli elementi uno dopo l'altro ma li spostiamo individualmente */
+}
+.scattered .item {
+  transform:
+    translate3d(var(--txvw, 0), var(--tyvh, 0), 0)
+    rotate(var(--rot, 0deg))
+    scale(var(--scale, 1));
+}
+
+/* 2) ARRANGED: div orizzontale scrollabile, immagini in riga */
+.arranged {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 8px 12px;
+}
+.arranged::-webkit-scrollbar { display: none; }
+
+/* in strip gli item tornano alla posizione di default (trasform = none) */
+.arranged .item {
+  transform: none;
+}
+
+/* opzionale: snap */
+.arranged {
+  scroll-snap-type: x proximity;
+}
+.arranged .item {
+  scroll-snap-align: center;
+}

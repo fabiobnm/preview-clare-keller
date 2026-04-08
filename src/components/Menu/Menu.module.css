@@ -1,0 +1,158 @@
+/* Wrapper animato (entrata/uscita) */
+.menuWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  transform: translateY(0%);/* aumeta se vuoi che parte da fuori*/
+  transition: transform 0.4s ease-in-out ;
+
+  will-change: transform;
+}
+.enter { transform: translateY(0); }
+.exit  { transform: translateY(0%); }/* aumeta se vuoi che sale quando esci dalla pagina*/
+
+/* Nudge: muove tutto il contenuto del menu (logo + voci) */
+.nudge {
+  width: 100%;
+  transform: translateY(0);
+  transition: transform .8s ease ; /* regola se vuoi più/meno reattivo */
+  will-change: transform;
+}
+.nudgeUp {
+  transform: translateY(calc(var(--menu-height) * -1)); /* richiesta: sale di 4vh */
+}
+
+/* Logo */
+.logo { display: block; object-fit: contain; }
+.logoDesktop { height: auto;padding-inline: 15px;}
+.logoMobile  { height: 4vW; margin-inline: 15px;margin-bottom: 10px;}
+
+/* Menu container: default (home) */
+.FabioMenu {
+  position: relative;
+  display: flex;
+  top: -2.4vw;
+  transition: top 0.3s ease;
+  box-shadow: 0px 1px 1px transparent;
+}
+
+/* Quando NON siamo in home, porta top a 0 */
+ /* .isMobileLogo .FabioMenu { top: VW !important; }   /* ALTRIMENTI METTI 0
+
+/* Link: default .2 (pagine interne) */
+.navLink {
+  text-decoration: none;
+  cursor: pointer;
+  opacity: .2;
+  transition: opacity .2s ease;
+}
+.navLink:hover {
+  
+  opacity: 1;
+  transition:   .2s ease;
+}
+
+/* Link attivo (pagina corrente) */
+.active {
+  cursor: default;
+  pointer-events: none;
+  opacity: 1;
+  margin-left: 15px;
+}
+
+/* IN HOME: tutti i link opacity 1 */
+.isHome .navLink {
+  opacity: 1;
+}
+
+.isHome .navLink:hover {
+  opacity: .2;
+}
+
+@media (max-width: 600px) {
+ .FabioMenu {
+  position: relative;
+  display: block;
+  top: 0vw;
+  transition: top 0.3s ease;
+}
+.logoMobile  { 
+  width: calc(100% - 30px); 
+  height: auto;
+  margin-inline: 15px;
+  margin-bottom: 10px;
+}
+.nudgeUp {
+  transform: translateY(calc(-36vW - 15px)); /* richiesta: sale di 4vh */
+}
+
+ .FabioMenu {
+  position: relative;
+  display: block;
+  top: 0vw;
+  font-size: 0vW;
+  padding-top: 4vW;
+  transition: top 0.3s ease;
+}
+
+  .swapText:hover {
+    all: revert-layer;
+  }
+  .swapText::after {
+  content: attr(data-hover);
+  position: absolute;
+  left: 15px !important;
+  top: 61px !important;
+  opacity: 0;
+  color: rgba(255, 255, 255, 0);
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+}
+
+/* Base: in home tutte le voci a 1 */
+.isHome .navLink { opacity: 1; transition: opacity .4s ease; }
+
+/* Quando una (qualunque) voce è hoverata, abbassa tutte a .2... */
+.isHome .FabioMenu:has(.navLink:hover) .navLink { opacity: .2; }
+
+/* ...tranne quella davvero hoverata che resta 1 */
+.isHome .FabioMenu:has(.navLink:hover) .navLink:hover { opacity: 1; }
+
+/* Mantieni la voce attiva sempre a 1 */
+.active { opacity: 1; pointer-events: none; }
+
+
+.swapText {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* testo originale */
+.swapText::before {
+  content: attr(data-original);
+}
+
+/* testo hover */
+.swapText::after {
+  content: attr(data-hover);
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  color: black;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+/* nascondi ARCHIVE, mostra COMING SOON */
+.swapText:hover {
+  color: transparent;
+}
+
+.swapText:hover::after {
+  opacity: .5;
+}
