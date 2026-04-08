@@ -2,53 +2,230 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Clare Waight Keller</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+    <link rel="stylesheet" href="/index.css">
 
-    @font-face {
-      font-family: "Ufficio600";
-      src:
-        url("/fonts/Ufficio-500.woff2") format("woff2"),
-        url("/fonts/Ufficio-500.woff") format("woff");
-      font-style: normal;
-      font-display: swap;
-    }
-    ::-webkit-scrollbar {
-      display: none;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh; /* serve altezza per poter scrollare in verticale */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: rgb(233, 245, 255);
-      color: #000;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      gap: 10rem;
-      animation: backgroundIndex .6s ease 1.6s forwards;
-    }
-
-    p{
-       font-family: "Ufficio600"; 
-    }
-
- 
-  </style>
 </head>
 <body>
-  <div class="logoCentered" style="width: 40%;margin-inline: auto;margin-block: auto;">
+  <div style="position: fixed; top:0; left:0;padding: 10px;padding-inline: 15px;width: 100%;">
     <img src="../Asset4.svg" class="LogoIndex" />
-    <p style="text-align: center;font-family: 'Ufficio600'">coming soon</p>
+    <div style="z-index: 999999;" class='fabioMenu' >
+      <div class="divMenu">
+        <a href="/info">INFO</a>
+      </div>
+      <div class="divMenu">
+        <a href="https://cwkshop-2.myshopify.com/">SHOP</a>
+      </div>
+      <div class="divMenu"> 
+        <a href="/work">WORK</a>
+      </div>
+      <div class="divMenu divMenuRight">
+        <a href="/subscribe">SUBSCRIBE</a>
+      </div>
+    </div>
   </div>
 
-  
+  <!-- social links: give them IDs so JS can populate hrefs -->
+  <div class="socials">
+    <a id="instagram" style="margin-right:10px" href="#" aria-disabled="true">INSTAGRAM</a>
+    <a id="youtube" style="margin-right:10px" href="#" aria-disabled="true">YOUTUBE</a>
 
+    <p class="copy">©2025 Clare Waight Keller</p>
+  </div>
+
+  <div class="frame" id="frame">
+    <div class="row" id="row">
+      <!-- images injected from Hygraph -->
+    </div>
+  </div>
+
+  <script>
+
+const box = document.getElementById('frame');
+const rows = document.querySelectorAll('.row');
+
+
+  // cambio inline
+
+    setTimeout(() => {
+        box.style.setProperty('top', '58dvh');
+        rows.forEach(row => {
+  const imgs = row.querySelectorAll('img');
+  imgs.forEach(img => {
+    // usa setProperty se vuoi una custom property, o semplicemente:
+    img.style.setProperty('height', '40dvh');
+    // oppure: img.style.height = '40dvh';
+  });
+});
+
+      }, 1700);
+  
+  
+  
+    const HYGRAPH_ENDPOINT = "https://eu-west-2.cdn.hygraph.com/content/cmgfdcv2n007j07w3p805x60q/master";
+
+    const QUERY = `
+      query HomePages {
+        homePages(first: 1, orderBy: updatedAt_DESC) {
+          logoDesktop { url }
+          logoMobile  { url }
+          images (first:100){ id url }
+          instagram
+          threads
+          x
+          youtube
+          copyright
+        }
+      }
+    `;
+
+    const row = document.getElementById("row");
+    const frame = document.getElementById("frame");
+
+    async function loadImagesAndLinks() {
+      try {
+        const res = await fetch(HYGRAPH_ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ query: QUERY })
+        });
+
+        if (!res.ok) {
+          console.error("Hygraph HTTP error:", res.status, res.statusText);
+          return;
+        }
+
+        const json = await res.json();
+
+        if (!json.data || !json.data.homePages || json.data.homePages.length === 0) {
+          console.error("No homePages data from Hygraph", json);
+          return;
+        }
+
+        const home = json.data.homePages[0];
+
+        // --- IMAGES ---
+        const images = home.images || [];
+        row.innerHTML = "";
+        const fragment = document.createDocumentFragment();
+        for (let repeat = 0; repeat < 16; repeat++) {
+          images.forEach((imgObj) => {
+            if (!imgObj || !imgObj.url) return;
+            const img = document.createElement("img");
+            img.src = imgObj.url;            
+            img.alt = imgObj.id || "";
+            fragment.appendChild(img);
+          });
+        }
+        row.appendChild(fragment);
+
+        // --- SOCIAL LINKS ---
+        // Helper to safely set a link (or disable it if missing)
+        function setSocialLink(id, url, label) {
+          const el = document.getElementById(id);
+          if (!el) return;
+          if (url && url.trim()) {
+            el.setAttribute("href", url);
+            el.setAttribute("target", "_blank");
+            el.setAttribute("rel", "noopener noreferrer");
+            el.removeAttribute("aria-disabled");
+            el.textContent = label; // keep label consistent
+          } else {
+            el.setAttribute("href", "#");
+            el.setAttribute("aria-disabled", "true");
+            el.removeAttribute("target");
+            el.removeAttribute("rel");
+          }
+        }
+
+        setSocialLink("instagram", home.instagram, "INSTAGRAM");
+        setSocialLink("youtube", home.youtube, "YOUTUBE");
+        setSocialLink("threads", home.threads, "THREADS");
+        setSocialLink("x", home.x, "X");
+
+        // update copyright if present
+        if (home.copyright) {
+          const copy = document.querySelector(".socials .copy");
+          if (copy) copy.textContent = home.copyright;
+        }
+
+      } catch (err) {
+        console.error("Error fetching from Hygraph:", err);
+      }
+    }
+
+    // collega scroll verticale → scroll orizzontale (sensibilità standard)
+    function setupVerticalToHorizontalScroll() {
+      function updateHorizontalScroll() {
+        const maxScrollY =
+          document.documentElement.scrollHeight - window.innerHeight;
+        const maxScrollX = row.scrollWidth - row.clientWidth;
+
+        if (maxScrollY <= 0 || maxScrollX <= 0) return;
+
+        const ratio = window.scrollY / maxScrollY; // 0 → top, 1 → bottom
+        row.scrollLeft = maxScrollX * ratio;
+      }
+
+      window.addEventListener("scroll", updateHorizontalScroll);
+      updateHorizontalScroll();
+    }
+
+    // menu opacity behavior (hover dims others)
+    function setupMenuHoverDim() {
+      const links = document.querySelectorAll(".fabioMenu a");
+      links.forEach(link => {
+        link.addEventListener("mouseenter", () => {
+          links.forEach(l => {
+            if (l !== link) l.style.opacity = "0.2";
+          });
+        });
+
+        link.addEventListener("mouseleave", () => {
+          links.forEach(l => {
+            l.style.opacity = "1";
+          });
+        });
+      });
+    }
+
+    // archive "COMING SOON" on hover
+    function setupArchiveComingSoon() {
+      const archiveLink = document.querySelector('.archive');
+      if (archiveLink) {
+        const originalText = archiveLink.textContent;
+        archiveLink.addEventListener("mouseenter", () => {
+          archiveLink.textContent = "COMING SOON";
+        });
+        archiveLink.addEventListener("mouseleave", () => {
+          archiveLink.textContent = originalText;
+        });
+      }
+    }
+
+    window.addEventListener("load", () => {
+      loadImagesAndLinks().then(() => {
+        setupVerticalToHorizontalScroll();
+        setupMenuHoverDim();
+        setupArchiveComingSoon();
+      });
+    });
+
+
+// First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+let vh = window.innerHeight * 0.01;
+// Then we set the value in the --vh custom property to the root of the document
+document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+// We listen to the resize event
+window.addEventListener('resize', () => {
+  // We execute the same script as before
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+});
+  </script>
 </body>
 </html>
