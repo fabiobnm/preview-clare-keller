@@ -183,7 +183,7 @@ text-decoration: underline;
     margin-left: calc(33.32vW);
     padding-bottom: 30px;
     overflow-x: auto;
-    gap: 16px;
+    gap: 0px;
     max-height: 50vH;
 }
 

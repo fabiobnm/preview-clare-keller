@@ -71,6 +71,9 @@ const [hovered, setHovered] = useState<string | null>(null);
                   marginTop: "0px",
                 }}
               >
+                <div className="ciao" style={{marginLeft:'33.32vW', marginTop:'20px'}} dangerouslySetInnerHTML={{ __html: work.info?.html ?? " " }}/>
+                    
+                
                 <div
                   ref={(el) => {
                     scrollerRefs.current[work.project] = el;
@@ -81,9 +84,9 @@ const [hovered, setHovered] = useState<string | null>(null);
                         const isHovered = hovered === key;
 
                         return (
-                          <div key={i}>
+                          <div style={{ marginBottom: link.notes ? '16px' : '0px',}} key={i}>
                             <a
-                              style={{ marginBottom: '15px' , opacity: isHovered ? 1 : 0, marginLeft:isHovered ? '0px' : '-20px' , transition:'.5s'}}
+                              style={{  marginBottom: '15px' , opacity: isHovered ? 1 : 0, marginLeft:isHovered ? '0px' : '-20px' , transition:'.5s'}}
                               href={link.url}
                               target="_blank"
                               rel="noopener noreferrer"
