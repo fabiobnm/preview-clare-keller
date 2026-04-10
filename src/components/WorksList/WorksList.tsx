@@ -65,13 +65,13 @@ const [hovered, setHovered] = useState<string | null>(null);
               </div>
               <div
                 style={{
-                  maxHeight: isOpen ? "60vH" : "0px",
+                  maxHeight: isOpen ? "100vH" : "0px",
                   overflow: "hidden",
                   transition: "max-height .8s ease",
                   marginTop: "0px",
                 }}
               >
-                <div className="ciao" style={{marginLeft:'33.32vW', marginTop:'20px'}} dangerouslySetInnerHTML={{ __html: work.info?.html ?? " " }}/>
+                <div className="workInfo" dangerouslySetInnerHTML={{ __html: work.info?.html ?? " " }}/>
                     
                 
                 <div
@@ -84,7 +84,7 @@ const [hovered, setHovered] = useState<string | null>(null);
                         const isHovered = hovered === key;
 
                         return (
-                          <div style={{ marginBottom: link.notes ? '16px' : '0px',}} key={i}>
+                          <div style={{ marginBottom: link.notes ? '30px' : '0px',}} key={i}>
                             <a
                               style={{  marginBottom: '15px' , opacity: isHovered ? 1 : 0, marginLeft:isHovered ? '0px' : '-20px' , transition:'.5s'}}
                               href={link.url}

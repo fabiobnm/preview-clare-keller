@@ -84,6 +84,7 @@ text-decoration: underline;
 
 .textWriter p{
   font-size: 11px;
+  line-height: normal;
 }
 
 
@@ -184,7 +185,13 @@ text-decoration: underline;
     padding-bottom: 30px;
     overflow-x: auto;
     gap: 0px;
-    max-height: 50vH;
+   /* max-height: 50vH;   forse serve */
+    line-height: 0.8;
+}
+
+.workInfo{
+  margin-left: 33.32vW;
+  margin-top: 20px;
 }
 
 .labelInput{
@@ -590,6 +597,15 @@ display: block;
 }
 .workYear{
   display: none;
+}
+
+.nameWork{
+  width: 86vW;
+}
+
+.workInfo{
+  margin-left: 0;
+  margin-top: 20px;
 }
 
 .workLinkList{
