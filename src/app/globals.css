@@ -23,8 +23,7 @@
 @font-face {
   font-family: "PPeiko-Regular";
   src:
-    url("/fonts/PPeiko-Regular.woff") format("woff"),   /* il tuo file */
-    url("/fonts/PPeiko-Regular.ttf") format("truetype");   /* il tuo file */
+    url("/fonts/DGMSprinter-LightItalic.woff") format("woff");   /* il tuo file */
   font-style: normal;
   font-display: swap;
 }
