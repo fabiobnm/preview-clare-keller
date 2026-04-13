@@ -188,6 +188,10 @@ text-decoration: underline;
    /* max-height: 50vH;   forse serve */
     line-height: 0.8;
 }
+.workArrow{
+  position: absolute;
+  right: 15px;
+}
 
 .workInfo{
   margin-left: 49.65vW;
@@ -603,6 +607,11 @@ display: block;
 }
 .workYear{
   display: none;
+}
+
+.workArrow{
+  position: relative;
+  right: 0px;
 }
 
 .nameWork{

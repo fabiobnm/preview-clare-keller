@@ -72,7 +72,7 @@ const [hovered, setHovered] = useState<string | null>(null);
 
           return (
             <div key={work.project} style={{borderBottom:'.5px solid #e6e6e6', width:'100%',paddingBlock:'5px', paddingTop:'7px'}}>
-            <div style={{display:'flex',cursor: "pointer",}}   onClick={() => handleClickDirector(work.project)}
+            <div style={{display:'flex',cursor: "pointer", justifyContent:'space-between' }}   onClick={() => handleClickDirector(work.project)}
                             onMouseEnter={(e) => {
                             if (isOpen) return; // ← BLOCCO SE È APERTO
                             }}>
@@ -89,7 +89,7 @@ const [hovered, setHovered] = useState<string | null>(null);
                         {work.project}
                     </p>
                     <p className="workYear" style={{position:'absolute', left:'calc(49.65vW + 15px)'}}>{work.year}</p>
-                    <p style={{position:'absolute', right:'15px'}}>{isOpen ? "↑" : "↓"}</p>
+                    <p className="workArrow">{isOpen ? "↑" : "↓"}</p>
 
               </div>
               <div
