@@ -37,8 +37,37 @@ const [hovered, setHovered] = useState<string | null>(null);
 
   return (
     <>
-      <ul style={{ listStyle: "none", padding: 0, margin: 0 ,borderTop: '.5px solid #e6e6e6',width:'calc(100vW - 30px)', marginLeft:'15px',}}>
-        {works.map((work) => {
+      <ul style={{ listStyle: "none", padding: 0, margin: 0 ,borderTop: '.5px solid #e6e6e6',width:'calc(100vW - 30px)', marginLeft:'15px',marginBottom:'30px'}}>
+       
+       
+      {[...works]
+  .sort((a, b) => {
+    const parseYear = (y: string) => {
+      const str = y.toLowerCase().trim();
+
+      const isCurrent = str.includes("current");
+
+      // prendi tutti gli anni validi
+      const matches = str.match(/\d{4}/g) || [];
+
+      // ultimo anno valido (fine range)
+      const year = matches.length ? Number(matches[matches.length - 1]) : 0;
+
+      return { isCurrent, year };
+    };
+
+    const A = parseYear(a.year);
+    const B = parseYear(b.year);
+
+    // current sempre sopra
+    if (A.isCurrent !== B.isCurrent) {
+      return A.isCurrent ? -1 : 1;
+    }
+
+    // poi ordina per anno (fine range)
+    return B.year - A.year;
+  })
+  .map((work) => {
           const isOpen = selectedWork === work.project;
 
           return (
@@ -59,7 +88,7 @@ const [hovered, setHovered] = useState<string | null>(null);
                     >
                         {work.project}
                     </p>
-                    <p className="workYear" style={{position:'absolute', left:'calc(33.32vW + 15px)'}}>{work.year}</p>
+                    <p className="workYear" style={{position:'absolute', left:'calc(49.65vW + 15px)'}}>{work.year}</p>
                     <p style={{position:'absolute', right:'15px'}}>{isOpen ? "↑" : "↓"}</p>
 
               </div>

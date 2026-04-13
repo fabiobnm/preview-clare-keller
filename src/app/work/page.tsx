@@ -1,6 +1,5 @@
 import Menu from '@/components/Menu/MenuServer';
 import { hygraph } from '@/lib/hygraph';
-import ReactMarkdown from 'react-markdown';
 import { WORK_PAGE_QUERY, type Work, type Link, type LinkUnion } from '@/lib/queries/work';
 import Footer from '@/components/Footer/Footer';
 import WorksList from "@/components/WorksList/WorksList";
@@ -27,7 +26,6 @@ export default async function Page() {
     );
   }
 
-console.log('eccolo:'+works)
 
   return (
   <div>
