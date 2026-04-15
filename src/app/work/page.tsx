@@ -30,7 +30,7 @@ export default async function Page() {
   return (
   <div>
       <Menu/>
-      <main style={{marginTop:'275px', minHeight: 'calc(99vH - 275px)'}} className="mx-auto max-w-5xl px-4 py-8 opacityAnim">
+      <main className="mx-auto max-w-5xl px-4 py-8 opacityAnim mainWorkBlock">
         <WorksList works={works} />
       </main>
       <Footer />

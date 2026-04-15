@@ -260,3 +260,17 @@
     #ArcNo:hover{
   all: revert-layer;
 }
+
+
+ @media (min-width: 2400px) {
+  p{ 
+    font-size: 20px;
+  }
+
+  .divMenu, .divMenuRight{
+    font-size: 20px;
+  }
+ .socials{
+   font-size: 20px;
+ }
+}

@@ -17,6 +17,7 @@ export default function WritersList({ works }: Props) {
 
   const scrollerRefs = useRef<Record<string, HTMLDivElement | null>>({});
 const [hovered, setHovered] = useState<string | null>(null);
+const [hoveredWork, setHoveredWork] = useState<string | null>(null);
 
 
 
@@ -72,10 +73,15 @@ const [hovered, setHovered] = useState<string | null>(null);
 
           return (
             <div key={work.project} style={{borderBottom:'.5px solid #e6e6e6', width:'100%',paddingBlock:'5px', paddingTop:'7px'}}>
-            <div style={{display:'flex',cursor: "pointer", justifyContent:'space-between' }}   onClick={() => handleClickDirector(work.project)}
-                            onMouseEnter={(e) => {
-                            if (isOpen) return; // ← BLOCCO SE È APERTO
-                            }}>
+            <div className="bloccoWork" style={{display:'flex',cursor: "pointer", justifyContent:'space-between',
+             opacity: hoveredWork && hoveredWork !== work.project ? 0.3 : 1,
+             transition: 'opacity .8s'}}   
+             onClick={() => handleClickDirector(work.project)}
+             onMouseEnter={() => {
+              if (isOpen) return;
+              setHoveredWork(work.project);
+            }}
+            onMouseLeave={() => setHoveredWork(null)}>
                     <p
                         className={`nameWork ${isOpen ? "nameWork--active" : ""}`}
                         style={{

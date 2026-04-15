@@ -23,7 +23,8 @@
 @font-face {
   font-family: "PPeiko-Regular";
   src:
-    url("/fonts/DGMSprinter-LightItalic.woff") format("woff");   /* il tuo file */
+    url("/fonts/PPEiko-Regular.woff2") format("woff2"),   
+    url("/fonts/PPEiko-Regular.woff") format("woff"); 
   font-style: normal;
   font-display: swap;
 }
@@ -171,6 +172,10 @@ text-decoration: underline;
 /* tranne QUELLO sotto il mouse */
 .footerLink a:hover {
   opacity: 1 !important;
+}
+.mainWorkBlock{
+  margin-top: 275px;
+  min-height: calc(-275px + 99vh);
 }
 
 .workYear{
@@ -1039,3 +1044,26 @@ opacity: 0;
 }
 
     }
+
+
+    @media (min-width: 2400px) {
+  p{ 
+    font-size: 20px;
+  }
+  h1{
+    font-size: 40px;
+  }
+  .divMenu, .divMenuRight{
+    font-size: 20px;
+  }
+  .mainWorkBlock{
+  margin-top: 445px;
+  min-height: calc(-445px + 99vh);
+}
+.custom-link{
+  font-size: 20px;
+}
+.textWriter p{
+  font-size: 16px;
+}
+}
