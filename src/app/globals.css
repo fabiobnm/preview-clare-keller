@@ -1067,3 +1067,10 @@ opacity: 0;
   font-size: 16px;
 }
 }
+
+@media (max-width: 850px) {
+.workYear{
+  display: none;
+}
+
+}
